@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./resets.css">
+    <title>Error 404 - Page Not Found</title>
+</head>
+<style>
+.error-container {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 100px auto;
+    max-width: 400px;
+}
+a{
+    cursor: pointer;
+    margin: 2rem auto;
+    padding: 0.5rem;
+    background: rgb(32, 130, 241);
+    color: #fff;
+    border-radius: 5px;
+}
+@media (max-width: 480px) {
+    .error-container {
+        margin: 20px;
+    }
+}
+
+</style>
+<body>
+    <div class="error-container">
+        <h1 style="color:#ff5252;font-size: 2rem;">2003 - Can't connect to MySQL server:</h1>
+        <a href="#">Back to Home</a>
+    </div>
+    <script>
+        const myLink = document.querySelector('a');
+        const currentURL = window.location.href;
+        const currentHost = window.location.protocol + '//' + window.location.host;
+        const currentPath = window.location.pathname;
+
+        const currentURLWithoutFilename = currentHost + currentPath.substring(0, currentPath.lastIndexOf('/'));
+        myLink.href = `${currentURLWithoutFilename}/index.html`;
+    </script>
+</body>
+</html>
