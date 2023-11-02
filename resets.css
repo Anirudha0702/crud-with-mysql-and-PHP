@@ -1,7 +1,7 @@
 
 html {
-    line-height: 1.15; /* 1 */
-    -webkit-text-size-adjust: 100%; /* 2 */
+    line-height: 1.15; 
+    -webkit-text-size-adjust: 100%; 
   }
 
   body {
@@ -57,6 +57,11 @@ a,button{
       color: #fff;
       border-radius: 5px;
     }
+
+    .link{
+      text-decoration: none;
+      background-color: transparent;
+    }
   table {
     border-collapse: collapse;
     border-spacing: 0;
@@ -81,7 +86,7 @@ a,button{
   li {
     padding: 0.3rem;
   }
-  
+
   h3{
     background-color: rgb(32, 130, 241);
     color:#fff;
@@ -121,19 +126,20 @@ ol li{
     background-color:rgb(32, 130, 241);
     color: #fff;
 }
-ol li:hover{
-    background-color:rgb(115, 170, 233);
+ol .items:hover
+{
+    background-color:rgb(115, 174, 255);
 }
 select{
-    outline: none;
-    border: none;
+  outline: none;
+  border: none;
     width: 100%;
     background-color: transparent;
     color:#fff
 }
 option{
     width: 100%;
-    color:rgba(0, 0, 0, 0.733);
+    color:rgb(0, 0, 0);
     background-color: rgb(221, 218, 214);
 }
 .content{

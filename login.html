@@ -52,7 +52,7 @@
     <div class="login-container">
         <h2>Login</h2>
         <form id="login-form" method="post" action="validation.php">
-            <input type="text" name="username"class="input-field" id="username" placeholder="Username" required>
+            <input type="text" name="email" class="input-field" id="username" placeholder="Email" required>
             <input type="password" class="input-field" id="password" placeholder="Password" name="password"required>
             <?php
                 if(isset($_GET['message']) && $_GET['message'] == 'Invalid Credentials'){
@@ -65,5 +65,12 @@
             <button type="submit" class="login-button" >Login</button>
         </form>
     </div>
+    <script>
+        const username = localStorage.getItem('email');
+        const password = localStorage.getItem('password');
+        if(username && password){
+           window.location.href =window.location.href.replace('login.html','index.html');
+        }
+    </script>
 </body>
 </html>

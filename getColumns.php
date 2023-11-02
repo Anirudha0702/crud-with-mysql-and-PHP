@@ -1,39 +1,34 @@
 <?php
     include "credentials.php";
-    // if($_SERVER["REQUEST_METHOD"] == "POST"){
         $tableName=$_GET['table_name'];
         $conncetion=mysqli_connect($server,$db_username,$db_password,$databasename);
         if(!$conncetion){
             header("Location: " . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/error.html");
         }
-        $query="select * from ".$tableName.";";
+        $query="SELECT COLUMN_NAME, DATA_TYPE
+        FROM INFORMATION_SCHEMA.COLUMNS
+        WHERE TABLE_SCHEMA = 'college_db'
+          AND TABLE_NAME = '".$tableName."';";
+        
         
         try{
             $res=mysqli_query($conncetion,$query);
-            if (mysqli_num_rows($res) > 0) {
-                echo '<table border="3">';
+            if ($res ) {
+                echo "<form action='./insert.php?table=".$tableName."' method='POST'>";
                 while($row=mysqli_fetch_array($res)){
-                    echo "<tr>";
-                    for($i=0;$i<sizeof($row)/2;$i++){
-                        echo "<td>".$row[$i]."</td>";
-                    }
-                    echo "</tr>";
+                    echo "<label for='".$row['COLUMN_NAME']."'>".$row['COLUMN_NAME']."(".$row['DATA_TYPE'].")</label>";
+                    echo "<input type='text' name='".$row['COLUMN_NAME']."' id='".$row['DATA_TYPE']."'>";
+                   
                 }
                 mysqli_close($conncetion);
-                echo "</table>";
+                echo    "<button type='submit'>Insert</button>";
+                echo "</form>";
             } else {
-                echo '<script>';
-                echo 'console.log("Message from PHP");';
-                echo '</script>';
-                echo "No records fovcvund.";
+                echo "No records found.";
             }
             
         }
         catch(Exception $e){
             header("Location: " . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.html?message=failed&err=".$e->getMessage());
         }
-    // }
-    // else {
-    //     echo "Invalid 404 bad request";
-    // }
 ?>
