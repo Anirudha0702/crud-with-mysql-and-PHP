@@ -46,6 +46,9 @@
                 elseif(isset($_GET['table_name']) && $_GET['table_name'] != '' &&isset($_GET['insert']) && $_GET['insert'] == 'true'){
                     include "getColumns.php";
                 }
+                elseif(isset($_GET['table_name']) && $_GET['table_name'] != '' &&isset($_GET['update']) && $_GET['update'] == 'true'){
+                    include "update.php";
+                }
                 ?>
                 
             </div>
@@ -57,17 +60,20 @@
     const create_Link = document.querySelector('.create');
     const delete_Link = document.querySelector('.delete');
     const insert_Link = document.querySelector('.insert');
+    const update_Link = document.querySelector('.update');
     const select = document.querySelector('select');
     const baseURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
     delete_Link.href = `${baseURL}?table_name=${select.value}&delete=true`;
     create_Link.href = `${baseURL}?table_name=${select.value}&show=true`;
     insert_Link.href = `${baseURL}?table_name=${select.value}&insert=true`;
+    update_Link.href = `${baseURL}?table_name=${select.value}&update=true`;
 
     function updateURLS (value){
             console.log(value);
             create_Link.href = `${baseURL}?table_name=${value}&show=true`;
             delete_Link.href = `${baseURL}?table_name=${value}&delete=true`;
             insert_Link.href = `${baseURL}?table_name=${value}&insert=true`;
+            update_Link.href = `${baseURL}?table_name=${value}&update=true`;
             console.log(insert_Link.href)
     }
 
