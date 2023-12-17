@@ -7,6 +7,12 @@
     <title>Dashboard</title>
 </head>
 <body>
+    <?php
+        session_start();
+        if(!isset($_SESSION['logined']) || $_SESSION['logined'] != 'true'){
+            header("Location: " . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/login.html");
+        }
+        ?>
     <div class="main_wrapper">
         <h3 class="title">COLLEGE DATABASE</h3>
         <div class="wrapper" >
@@ -47,7 +53,7 @@
                     include "getColumns.php";
                 }
                 elseif(isset($_GET['table_name']) && $_GET['table_name'] != '' &&isset($_GET['update']) && $_GET['update'] == 'true'){
-                    include "update.php";
+                    include "getValues.php";
                 }
                 ?>
                 
