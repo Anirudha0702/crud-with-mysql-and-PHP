@@ -3,7 +3,7 @@ include "credentials.php";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
-    $connection=mysqli_connect($server,$db_username,$db_password,$databasename);
+    $connection=mysqli_connect($server,$db_username,$db_password,$databasename,$port);
     if(!$connection){
         header("Location: " . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/login.php?message=connection failed");
     }
