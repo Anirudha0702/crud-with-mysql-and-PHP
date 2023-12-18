@@ -55,6 +55,9 @@
                 elseif(isset($_GET['table_name']) && $_GET['table_name'] != '' &&isset($_GET['update']) && $_GET['update'] == 'true'){
                     include "getValues.php";
                 }
+                elseif(isset($_GET['table_name']) && $_GET['table_name'] != '' &&isset($_GET['delete_row']) && $_GET['delete_row'] == 'true'){
+                    include "deleteRow.php";
+                }
                 ?>
                 
             </div>
@@ -94,6 +97,13 @@
             <button type="submit">Create Table</button>
         </form>
         `;
+    }
+    function deleteRecord(e,table){
+        e.preventDefault();
+        console.log(table)
+        const pkey=e.target.parentNode.parentNode.childNodes[0].childNodes[0].textContent;
+        const key_val=e.target.parentNode.childNodes[0].textContent;
+        window.location.href = `${baseURL}?table_name=${table}&delete_row=true&key=${pkey}&val=${key_val}`;
     }
 </script>
 </html>
