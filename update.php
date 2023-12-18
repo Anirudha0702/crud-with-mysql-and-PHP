@@ -7,12 +7,11 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         }
     $values = $_POST;
     $tableName = $_GET['table'];
-    $mutation = "UPDATE ".$tableName." SET";
-
-    foreach ($values as $key => $value) {
-        $mutation = $mutation . " " . $value; 
-    }
-    echo $mutation;
+    $mutation = "UPDATE ".$tableName." SET ";
+    $mutation = $mutation . $_POST['cols_vals']; 
+        if(isset($_POST['where'])){
+            $mutation = $mutation." "  . $_POST['where'].";";
+        }
     try{
         $res=mysqli_query($conncetion,$mutation);
         mysqli_close($conncetion);
