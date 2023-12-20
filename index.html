@@ -14,6 +14,7 @@
         }
         ?>
     <div class="main_wrapper">
+        <a href="/logout.php" id="logout">Logout</a>
         <h3 class="title">COLLEGE DATABASE</h3>
         <div class="wrapper" >
             <nav class="navbar">
@@ -59,7 +60,6 @@
                     include "deleteRow.php";
                 }
                 ?>
-                
             </div>
         </div>
     </div>
@@ -71,7 +71,9 @@
     const insert_Link = document.querySelector('.insert');
     const update_Link = document.querySelector('.update');
     const select = document.querySelector('select');
-    const baseURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+    const baseURL = window.location.origin + "/"+ window.location.pathname;
+    console.log(window.location)
+    document.querySelector('#logout').href=baseURL.substring(0,baseURL.lastIndexOf("/"))+'/logout.php';
     delete_Link.href = `${baseURL}?table_name=${select.value}&delete=true`;
     create_Link.href = `${baseURL}?table_name=${select.value}&show=true`;
     insert_Link.href = `${baseURL}?table_name=${select.value}&insert=true`;
@@ -87,16 +89,18 @@
     }
 
     function createTable(){
-        content.innerHTML = `
-        <form action="createTable.php" method="POST">
-            <label for="table_name">Table Name</label>
-            <input type="text" name="table_name" id="table_name" placeholder="Table Name">
-            <label for="name_of_columns">Name of Columns</label>
-            <input type="text" name="name_of_columns" id="no_of_columns" placeholder="Name of Columns">
-            <p>Eg: id int(11) not null auto_increment primary key; name text(5);</p>
-            <button type="submit">Create Table</button>
-        </form>
-        `;
+        const label=document.createElement("label");
+        const inp=document.createElement("input")
+        const btn=document.createElement("button");
+        label.setAttribute("for","count_col")
+        inp.id="count_col"
+        inp.placeholder="NO of Columns"
+        btn.textContent="GENERATE"
+        content.appendChild(inp)
+        btn.addEventListener("click",()=>{
+            addColumn(document.getElementById("count_col").value)
+        })
+        content.appendChild(btn)
     }
     function deleteRecord(e,table){
         e.preventDefault();
@@ -104,6 +108,35 @@
         const pkey=e.target.parentNode.parentNode.childNodes[0].childNodes[0].textContent;
         const key_val=e.target.parentNode.childNodes[0].textContent;
         window.location.href = `${baseURL}?table_name=${table}&delete_row=true&key=${pkey}&val=${key_val}`;
+    }
+    function addColumn(count){
+        console.log(count)
+        let template='';
+        for(let i=0;i<count;++i){
+            template+=`
+            <div id="col_${i+1}">
+                <input type="text" class="col_name" placeholder="Column Name" name="col_name${i+1}">
+                <label>
+                    Is Primary Key
+                    <input type="radio" name="is${i+1}pkey" id="">    
+                </label>
+                <select name="typeof${i+1}" id="" style="color:black;background-color:rgb(221, 218, 214)">
+                    <option value="varchar(255)">varchar(255)</option>
+                    <option value="int">int</option>
+                    <option value="date">date</option>
+                </select>
+            </div>`
+        }
+        content.innerHTML=`
+        <form action="createTable.php" method="POST" id='create'>
+            <label for="table_name">Table Name</label>
+            <input type="text" name="table_name" id="table_name" placeholder="Table Name">
+            <div id="column_wrapper">
+                 ${template}   
+            </div>
+            <button type="submit">Create Table</button>
+        </form>
+        `;
     }
 </script>
 </html>

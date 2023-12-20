@@ -1,15 +1,29 @@
 <?php
 include "credentials.php";
     if($_SERVER["REQUEST_METHOD"] == "POST"){
-        $positionToRemove=-3;
-        $string="create table ".$_POST['table_name']."(".implode(",",explode(";",$_POST['name_of_columns'])).");";
-        $query = substr($string, 0, $positionToRemove) . substr($string, $positionToRemove + 1);
         $conncetion=mysqli_connect($server,$db_username,$db_password,$databasename,$port);
         if(!$conncetion){
             header("Location: " . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/error.html");
         }
+        $tableName = $_POST['table_name'];
+        $sql = "CREATE TABLE $tableName (";
+
+        for ($i = 1; isset($_POST["col_name$i"]); $i++) {
+            $columnName = $_POST["col_name$i"];
+            $columnType = $_POST["typeof$i"];
+            $isPrimaryKey = isset($_POST["is${i}pkey"]) && $_POST["is${i}pkey"] == 'on';
+            $sql .= "$columnName $columnType";
+            if ($isPrimaryKey) {
+                $sql .= " PRIMARY KEY NOT NULL";
+            }
+            if (isset($_POST["col_name" . ($i + 1)])) {
+                $sql .= ", ";
+            }
+        }
+        $sql .= ");";
+        echo $sql;
         try{
-            $res=mysqli_query($conncetion,$query);
+            $res=mysqli_query($conncetion,$sql);
             mysqli_close($conncetion);
             header("Location: " . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.html?message=success&msg=Table%20Created%20Successfully");
         }

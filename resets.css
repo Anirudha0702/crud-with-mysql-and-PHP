@@ -133,9 +133,9 @@ ol .items:hover
 select{
   outline: none;
   border: none;
-    width: 100%;
-    background-color: transparent;
-    color:#fff
+  width: 100%;
+  background-color: transparent;
+  color:#fff
 }
 option{
     width: 100%;
@@ -149,4 +149,10 @@ option{
     padding: 0.5rem;
     color:rgba(0, 0, 0, 0.664);
     overflow-y: scroll;
+}
+a#logout{
+  position: fixed;
+  top:1rem;
+  background-color: red;
+  right:1rem;
 }

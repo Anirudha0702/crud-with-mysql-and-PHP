@@ -12,6 +12,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         if(isset($_POST['where'])){
             $mutation = $mutation." "  . $_POST['where'].";";
         }
+        echo $mutation;
     try{
         $res=mysqli_query($conncetion,$mutation);
         mysqli_close($conncetion);

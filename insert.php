@@ -13,6 +13,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $query = $query . "'" . $value . "',"; 
     }
     $query = rtrim($query, ',') . ")";
+    echo $query;
     try{
         $res=mysqli_query($conncetion,$query);
         mysqli_close($conncetion);

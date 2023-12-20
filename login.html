@@ -88,7 +88,13 @@
     </style>
 </head>
 <body>
-
+    <?php
+    session_start();
+    if(isset($_SESSION['logined']) &&  $_SESSION['logined'] == 'true'){
+        header("Location: " . $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF'])."/index.html");
+        exit();
+    }
+    ?>
 <div class="form-container">
     <div class="form-tabs">
         <button class="tab-btn active" onclick="showForm('loginForm')">Login</button>
@@ -128,28 +134,28 @@
                 <input type="text" id="signupUsername" name="Roll" required>
             </div>
             <div class="form-group">
-                <label for="signupUsername">Address:</label>
-                <input type="text" id="signupUsername" name="Address" required>
-            </div>
-            <div class="form-group">
                 <label for="signupUsername">Username:</label>
                 <input type="text" id="signupUsername" name="Name" required>
             </div>
             <div class="form-group">
-                <label for="signupUsername">DOB:</label>
-                <input type="text" id="signupUsername" name="DOB" required>
+                <label for="signupUsername">Address:</label>
+                <input type="text" id="signupUsername" name="Address" required>
             </div>
             <div class="form-group">
                 <label for="signupUsername">Gender:</label>
                 <input type="text" id="signupUsername" name="Gender" required>
             </div>
             <div class="form-group">
-                <label for="signupUseremail">Email:</label>
-                <input type="email" id="signupUseremail" name="Email" required>
+                <label for="signupUsername">DOB:</label>
+                <input type="text" id="signupUsername" name="DOB" required>
             </div>
             <div class="form-group">
                 <label for="signupUsername">Phone:</label>
                 <input type="text" id="signupUsername" name="Phone" required>
+            </div>
+            <div class="form-group">
+                <label for="signupUseremail">Email:</label>
+                <input type="email" id="signupUseremail" name="Email" required>
             </div>
             <div class="form-group">
                 <label for="Password">Password:</label>
